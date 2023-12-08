@@ -1,11 +1,12 @@
-package hexlet.code.schemas;
+package hexlet.code;
 
 
 public abstract class BaseSchema {
     public boolean required = false;
 
-    public void required() {
+    public BaseSchema required() {
         this.required = true;
+        return this; // This change allows method chaining.
     }
 
     public abstract boolean isValid(Object value);

@@ -1,17 +1,20 @@
 package hexlet.code.schemas;
 
+import hexlet.code.BaseSchema;
+
 public class NumberSchema extends BaseSchema {
     private boolean isPositive = false;
     private int min = 0;
     private int max = 0;
 
-    public void positive() {
+    public BaseSchema positive() {
         this.isPositive = true;
+        return this; // This change allows method chaining.
     }
 
-    public void range(int minNumber, int maxNumber) {
-        this.min = minNumber;
-        this.max = maxNumber;
+    public void range(int minIn, int maxIn) {
+        this.min = minIn;
+        this.max = maxIn;
     }
 
     @Override

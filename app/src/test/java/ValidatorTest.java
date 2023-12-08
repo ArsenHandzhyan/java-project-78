@@ -1,7 +1,8 @@
+import hexlet.code.BaseSchema;
 import hexlet.code.schemas.MapSchema;
 import hexlet.code.schemas.NumberSchema;
 import hexlet.code.Validator;
-import hexlet.code.StringSchema;
+import hexlet.code.schemas.StringSchema;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -12,16 +13,17 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ValidatorTest {
+    Validator v;
     StringSchema stringSchema;
     NumberSchema numberSchema;
     MapSchema mapSchema;
 
     @BeforeEach
     public void setUp() {
-        Validator v = new Validator();
+        v = new Validator();
         stringSchema = v.string();
         numberSchema = v.number();
-        mapSchema = v.data();
+        mapSchema = v.map();
     }
 
     @Test
@@ -47,8 +49,8 @@ public class ValidatorTest {
         assertFalse(numberSchema.isValid(null)); // false
 
         mapSchema.required();
-        mapSchema.isValid(null); // false
-        mapSchema.isValid(new HashMap<>()); // true
+        assertFalse(mapSchema.isValid(null)); // false
+        assertTrue(mapSchema.isValid(new HashMap<>())); // true
     }
 
     @Test
@@ -87,15 +89,55 @@ public class ValidatorTest {
     }
 
     @Test
-    public void testWithSize() {
+    public void testWithMapSize() {
         Map<String, String> data = new HashMap<>();
         data.put("key1", "value1");
         assertTrue(mapSchema.isValid(data)); // true
 
         mapSchema.sizeof(2);
-
         assertFalse(mapSchema.isValid(data));  // false
         data.put("key2", "value2");
         assertTrue(mapSchema.isValid(data)); // true
     }
+
+    @Test
+    public void testWithMapValue() {
+// shape позволяет описывать валидацию для значений каждого ключа объекта Map
+// создаем набор схем для проверки каждого ключа проверяемого объекта
+// Для значения каждого ключа - своя схема
+        Map<String, BaseSchema> schemas = new HashMap<>();
+
+// Определяем схемы валидации для значений свойств "name" и "age"
+// Имя должно быть строкой, обязательно для заполнения
+        schemas.put("name", stringSchema.required());
+// Возраст должен быть положительным числом
+        schemas.put("age", numberSchema.positive());
+// Настраиваем схему `MapSchema`
+// Передаем созданный набор схем в метод shape()
+
+        mapSchema.shape(schemas);
+
+        // Проверяем объекты
+        Map<String, Object> human1 = new HashMap<>();
+        human1.put("name", "Kolya");
+        human1.put("age", 100);
+        assertTrue(mapSchema.isValid(human1)); // true
+
+        Map<String, Object> human2 = new HashMap<>();
+        human2.put("name", "Maya");
+        human2.put("age", null);
+        assertTrue(mapSchema.isValid(human2)); // true
+
+        Map<String, Object> human3 = new HashMap<>();
+        human3.put("name", "");
+        human3.put("age", null);
+        assertFalse(mapSchema.isValid(human3)); // false
+
+        Map<String, Object> human4 = new HashMap<>();
+        human4.put("name", "Valya");
+        human4.put("age", -5);
+        assertFalse(mapSchema.isValid(human4)); // false
+    }
+
+
 }
