@@ -5,8 +5,6 @@ import hexlet.code.schemas.BaseSchema;
 import java.util.Optional;
 
 public class StringSchema extends BaseSchema {
-
-    private boolean required = false;
     private int minLengthField = 0;
     private String containsField = "";
 
@@ -17,11 +15,6 @@ public class StringSchema extends BaseSchema {
     public StringSchema contains(String contains) {
         this.containsField = contains;
         return this;
-    }
-
-    @Override
-    public void required() {
-        this.required = true;
     }
 
     @Override

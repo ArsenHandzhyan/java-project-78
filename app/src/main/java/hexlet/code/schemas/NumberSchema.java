@@ -1,25 +1,17 @@
-package hexlet.code;
-
-import hexlet.code.schemas.BaseSchema;
+package hexlet.code.schemas;
 
 public class NumberSchema extends BaseSchema {
-    private boolean required = false;
-    private boolean positived = false;
+    private boolean isPositive = false;
     private int min = 0;
     private int max = 0;
 
     public void positive() {
-        this.positived = true;
+        this.isPositive = true;
     }
 
     public void range(int minNumber, int maxNumber) {
         this.min = minNumber;
         this.max = maxNumber;
-    }
-
-    @Override
-    public void required() {
-        this.required = true;
     }
 
     @Override
@@ -31,7 +23,7 @@ public class NumberSchema extends BaseSchema {
             return false;
         }
         int intValue = (int) value;
-        if (positived) {
+        if (isPositive) {
             return intValue > 0;
         }
         return intValue >= min && intValue <= max;
