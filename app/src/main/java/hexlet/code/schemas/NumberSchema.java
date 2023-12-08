@@ -1,7 +1,5 @@
 package hexlet.code.schemas;
 
-import hexlet.code.BaseSchema;
-
 public class NumberSchema extends BaseSchema {
     private boolean isPositive = false;
     private int min = 0;
