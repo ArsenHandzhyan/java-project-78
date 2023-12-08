@@ -1,14 +1,14 @@
 package hexlet.code;
 
-public class StringSchema {
+import hexlet.code.schemas.BaseSchema;
+
+import java.util.Optional;
+
+public class StringSchema extends BaseSchema {
 
     private boolean required = false;
     private int minLengthField = 0;
     private String containsField = "";
-
-    public void required() {
-        this.required = true;
-    }
 
     public void minLength(int minLength) {
         this.minLengthField = minLength;
@@ -19,22 +19,22 @@ public class StringSchema {
         return this;
     }
 
-    public boolean isValid(Object value) {
-        if (!(value instanceof String)) {
-            return false;
-        }
-        return isValid(String.valueOf(value));
+    @Override
+    public void required() {
+        this.required = true;
     }
 
-    public boolean isValid(String value) {
-        if (value == null || value.trim().isEmpty()) {
+    @Override
+    public boolean isValid(Object value) {
+        if (value == null) {
             return !required;
         }
-
-        if (value.length() < minLengthField) {
-            return false;
-        }
-
-        return value.contains(containsField);
+        return Optional.of(value)
+                .filter(v -> v instanceof String) // Check for null first
+                .map(String::valueOf)
+                .filter(s -> !required || !s.trim().isEmpty())
+                .filter(s -> s.length() >= minLengthField)
+                .filter(s -> s.contains(containsField))
+                .isPresent();
     }
 }

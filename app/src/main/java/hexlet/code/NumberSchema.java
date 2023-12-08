@@ -1,14 +1,12 @@
 package hexlet.code;
 
-public class NumberSchema {
+import hexlet.code.schemas.BaseSchema;
+
+public class NumberSchema extends BaseSchema {
     private boolean required = false;
     private boolean positived = false;
     private int min = 0;
     private int max = 0;
-
-    public void required() {
-        this.required = true;
-    }
 
     public void positive() {
         this.positived = true;
@@ -19,6 +17,12 @@ public class NumberSchema {
         this.max = maxNumber;
     }
 
+    @Override
+    public void required() {
+        this.required = true;
+    }
+
+    @Override
     public boolean isValid(Object value) {
         if (value == null) {
             return !required;
@@ -26,13 +30,10 @@ public class NumberSchema {
         if (!(value instanceof Integer)) {
             return false;
         }
-        return isValid(Integer.parseInt(value.toString()));
-    }
-
-    public boolean isValid(int value) {
+        int intValue = (int) value;
         if (positived) {
-            return value > 0;
+            return intValue > 0;
         }
-        return value >= min && value <= max;
+        return intValue >= min && intValue <= max;
     }
 }

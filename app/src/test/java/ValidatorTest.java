@@ -12,7 +12,7 @@ public class ValidatorTest {
     NumberSchema numberSchema;
 
     @BeforeEach
-    public void setUp()  {
+    public void setUp() {
         Validator v = new Validator();
         stringSchema = v.string();
         numberSchema = v.number();
@@ -20,8 +20,10 @@ public class ValidatorTest {
 
     @Test
     public void testWithNullAndEmpty() {
-        assertTrue(stringSchema.isValid("")); // true
+        assertFalse(stringSchema.isValid(5)); // false
+
         assertTrue(stringSchema.isValid(null)); // true
+        assertTrue(stringSchema.isValid("")); // true
         assertTrue(numberSchema.isValid(null)); // true
     }
 
