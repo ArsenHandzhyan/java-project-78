@@ -6,12 +6,8 @@ public abstract class BaseSchema {
 
     public BaseSchema required() {
         this.required = true;
-        return this; // This change allows method chaining.
+        return this;
     }
 
     public abstract boolean isValid(Object value);
-
-    public boolean contains(String value, String substring) {
-        return value != null && value.contains(substring);
-    }
 }
