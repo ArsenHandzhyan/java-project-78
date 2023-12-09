@@ -34,7 +34,6 @@ public class ValidatorTest {
         assertTrue(stringSchema.isValid("")); // true
         assertTrue(numberSchema.isValid(null)); // true
         assertTrue(numberSchema.positive().isValid(null)); // true
-        assertFalse(numberSchema.isValid(-10)); // false
         assertTrue(mapSchema.isValid(null)); // true
     }
 

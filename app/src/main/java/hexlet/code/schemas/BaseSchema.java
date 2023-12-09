@@ -12,7 +12,6 @@ public abstract class BaseSchema {
     int minLength = 0;
     int mapSize = 0;
     String contains = "";
-    
     final Map<String, BaseSchema> schemas = new HashMap<>();
 
     public void sizeof(int sizeMap) {
@@ -25,7 +24,7 @@ public abstract class BaseSchema {
 
     public BaseSchema positive() {
         this.isPositive = true;
-        return this; 
+        return this;
     }
 
     public void range(int minIn, int maxIn) {
@@ -39,7 +38,7 @@ public abstract class BaseSchema {
 
     public BaseSchema contains(String containsIn) {
         this.contains = containsIn;
-        return this; 
+        return this;
     }
 
     public BaseSchema required() {

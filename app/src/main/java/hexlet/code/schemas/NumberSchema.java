@@ -2,7 +2,6 @@ package hexlet.code.schemas;
 
 public class NumberSchema extends BaseSchema {
 
-
     @Override
     public boolean isValid(Object value) {
         if (value == null) {
@@ -12,9 +11,10 @@ public class NumberSchema extends BaseSchema {
             return false;
         }
         int intValue = (int) value;
-        if (isPositive) {
-            return intValue > 0;
+        if (isPositive && intValue <= 0) {
+            return false;
         }
-        return intValue >= rangeFrom && intValue <= rangeUpTo;
+        // Check range only if it was explicitly set
+        return rangeFrom == 0 && rangeUpTo == 0 || (intValue >= rangeFrom && intValue <= rangeUpTo);
     }
 }
