@@ -3,17 +3,6 @@ package hexlet.code.schemas;
 import java.util.Optional;
 
 public class StringSchema extends BaseSchema {
-    private int minLength = 0;
-    private String contains = "";
-
-    public void minLength(int minLengthIn) {
-        this.minLength = minLengthIn;
-    }
-
-    public StringSchema contains(String containsIn) {
-        this.contains = containsIn;
-        return this; // This change allows method chaining.
-    }
 
     @Override
     public boolean isValid(Object value) {
