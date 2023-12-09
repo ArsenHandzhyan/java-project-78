@@ -10,4 +10,8 @@ public abstract class BaseSchema {
     }
 
     public abstract boolean isValid(Object value);
+
+    public boolean contains(String value, String substring) {
+        return value != null && value.contains(substring);
+    }
 }
