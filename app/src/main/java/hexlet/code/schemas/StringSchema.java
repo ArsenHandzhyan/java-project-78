@@ -2,7 +2,7 @@ package hexlet.code.schemas;
 
 import java.util.Optional;
 
-public class StringSchema extends BaseSchema {
+public final class StringSchema extends BaseSchema {
 
     @Override
     public boolean isValid(Object value) {

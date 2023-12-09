@@ -13,14 +13,13 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public final class ValidatorTest {
-    Validator v;
     private StringSchema stringSchema;
     private NumberSchema numberSchema;
     private MapSchema mapSchema;
 
     @BeforeEach
     public void setUp() {
-        v = new Validator();
+        Validator v = new Validator();
         stringSchema = v.string();
         numberSchema = v.number();
         mapSchema = v.map();
