@@ -33,6 +33,8 @@ public class ValidatorTest {
         assertTrue(stringSchema.isValid(null)); // true
         assertTrue(stringSchema.isValid("")); // true
         assertTrue(numberSchema.isValid(null)); // true
+        assertTrue(numberSchema.positive().isValid(null)); // true
+        assertFalse(numberSchema.isValid(-10)); // false
         assertTrue(mapSchema.isValid(null)); // true
     }
 
@@ -47,6 +49,8 @@ public class ValidatorTest {
 
         numberSchema.required();
         assertFalse(numberSchema.isValid(null)); // false
+        assertFalse(numberSchema.isValid("5")); // false
+        assertTrue(numberSchema.isValid(10)); // true
 
         mapSchema.required();
         assertFalse(mapSchema.isValid(null)); // false

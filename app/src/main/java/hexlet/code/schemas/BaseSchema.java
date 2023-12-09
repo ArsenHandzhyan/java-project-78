@@ -7,15 +7,16 @@ import java.util.Map;
 public abstract class BaseSchema {
     boolean isPositive = false;
     public boolean required = false;
-    int rangeFrom = 0;
-    int rangeUpTo = 0;
+    int rangeFrom;
+    int rangeUpTo;
     int minLength = 0;
+    int mapSize = 0;
     String contains = "";
-    int size = 0;
+    
     final Map<String, BaseSchema> schemas = new HashMap<>();
 
     public void sizeof(int sizeMap) {
-        this.size = sizeMap;
+        this.mapSize = sizeMap;
     }
 
     public void shape(Map<String, BaseSchema> schemasIn) {
@@ -24,7 +25,7 @@ public abstract class BaseSchema {
 
     public BaseSchema positive() {
         this.isPositive = true;
-        return this; // This change allows method chaining.
+        return this; 
     }
 
     public void range(int minIn, int maxIn) {
@@ -38,7 +39,7 @@ public abstract class BaseSchema {
 
     public BaseSchema contains(String containsIn) {
         this.contains = containsIn;
-        return this; // This change allows method chaining.
+        return this; 
     }
 
     public BaseSchema required() {

@@ -34,9 +34,9 @@ public class MapSchema extends BaseSchema {
     }
 
     private boolean isValidSize(Map<?, ?> map) {
-        if (size == 0) {
+        if (mapSize == 0) {
             return true;
         }
-        return map.size() == size;
+        return map.size() == mapSize;
     }
 }
