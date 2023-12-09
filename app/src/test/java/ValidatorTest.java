@@ -12,11 +12,11 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class ValidatorTest {
+public final class ValidatorTest {
     Validator v;
-    StringSchema stringSchema;
-    NumberSchema numberSchema;
-    MapSchema mapSchema;
+    private StringSchema stringSchema;
+    private NumberSchema numberSchema;
+    private MapSchema mapSchema;
 
     @BeforeEach
     public void setUp() {
