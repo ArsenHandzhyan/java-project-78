@@ -20,13 +20,14 @@ public final class NumberSchema extends BaseSchema {
         if (value == null) {
             return condition.test(null);
         }
-        if (!(value instanceof Integer)) {
+        if (!(value instanceof Integer intValue)) {
             return false;
         }
-        if (condition.test(null) && (Integer) value <= 0) {
+        if (!condition.test(intValue)) {
             return false;
         }
-        return rangeFrom == 0 && rangeUpTo == 0 || ((Integer) value >= rangeFrom && (Integer) value <= rangeUpTo);
+
+        return rangeFrom == 0 && rangeUpTo == 0 || (intValue >= rangeFrom && intValue <= rangeUpTo);
     }
 
     public NumberSchema positive() {
