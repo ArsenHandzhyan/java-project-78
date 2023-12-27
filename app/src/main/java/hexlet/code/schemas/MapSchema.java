@@ -1,19 +1,29 @@
 package hexlet.code.schemas;
 
+import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
+import java.util.function.Predicate;
 
 public final class MapSchema extends BaseSchema {
+    private Predicate<Integer> condition = num -> true;
+    private final Map<String, BaseSchema> schemas = new HashMap<>();
+    private int mapSize = 0;
+
+    @Override
+    public BaseSchema required() {
+        condition = condition.and(Objects::nonNull);
+        return this;
+    }
 
     @Override
     public boolean isValid(Object value) {
-        // This method checks if a map is valid based on its size and contained elements.
         if (value == null) {
-            return !required;
+            return this.condition.test(null);
         }
 
         Map<?, ?> map = (Map<?, ?>) value;
 
-        // Extract methods for schema and size validation for clarity
         boolean schemaValid = isValidSchema(map);
         if (!schemaValid) {
             return false;
@@ -23,7 +33,6 @@ public final class MapSchema extends BaseSchema {
     }
 
     private boolean isValidSchema(Map<?, ?> map) {
-        // This method checks if all keys in the map have valid values according to their associated schemas.
         for (Map.Entry<String, BaseSchema> entry : schemas.entrySet()) {
             String key = entry.getKey();
             BaseSchema schema = entry.getValue();
@@ -36,10 +45,17 @@ public final class MapSchema extends BaseSchema {
     }
 
     private boolean isValidSize(Map<?, ?> map) {
-        // This method checks if the map size matches the expected size.
         if (mapSize == 0) {
             return true;
         }
         return map.size() == mapSize;
+    }
+
+    public void sizeof(int sizeMap) {
+        this.mapSize = sizeMap;
+    }
+
+    public void shape(Map<String, BaseSchema> schemasIn) {
+        this.schemas.putAll(schemasIn);
     }
 }
