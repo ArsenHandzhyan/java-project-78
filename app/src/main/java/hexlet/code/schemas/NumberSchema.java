@@ -30,7 +30,7 @@ public final class NumberSchema extends BaseSchema {
     }
 
     public NumberSchema positive() {
-        condition = condition.and(num -> num > 0);
+        condition = condition.and(num -> num == null || num > 0);
         return this;
     }
 
