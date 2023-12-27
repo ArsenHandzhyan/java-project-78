@@ -4,28 +4,32 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/5baa4f89b8a4df7f0402/maintainability)](https://codeclimate.com/github/ArsenHandzhyan/java-project-78/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/5baa4f89b8a4df7f0402/test_coverage)](https://codeclimate.com/github/ArsenHandzhyan/java-project-78/test_coverage)
 
-Hexlet Validator Library: Professional Edition
+## Hexlet Validator Library: Professional Edition
+
 Introducing Hexlet Validator: a robust and user-friendly data validation library for Java developers. This library empowers you to:
 
-Enforce data integrity: Ensure the accuracy and consistency of your data across applications.
-Simplify validation logic: Define complex validation rules with ease and clarity.
-Improve code quality: Write concise and maintainable code with the help of chainable methods.
-Reduce development time: Focus on core functionality without worrying about tedious validation logic.
-Key Features:
+- **Enforce data integrity**: Ensure the accuracy and consistency of your data across applications.
+- **Simplify validation logic**: Define complex validation rules with ease and clarity.
+- **Improve code quality**: Write concise and maintainable code with the help of chainable methods.
+- **Reduce development time**: Focus on core functionality without worrying about tedious validation logic.
 
-Extensible Schema System: Create and combine different schema types for diverse validation needs.
-Intuitive API: A simple and well-documented API makes adoption and usage effortless.
-Chainable Methods: Compose fluent validation chains for enhanced code readability.
-Null-safe Design: Handles null values gracefully and provides meaningful error messages.
-Wide Range of Applications:
+### Key Features:
 
-Web Applications: Validate user input forms, ensuring valid and secure data.
-Configuration Files: Ensure proper configuration formats and prevent errors.
-API Requests/Responses: Validate data payloads for robust and reliable communication.
-Data Processing: Enhance data integrity and reliability in various processing pipelines.
-Example Usage:
+- **Extensible Schema System**: Create and combine different schema types for diverse validation needs.
+- **Intuitive API**: A simple and well-documented API makes adoption and usage effortless.
+- **Chainable Methods**: Compose fluent validation chains for enhanced code readability.
+- **Null-safe Design**: Handles null values gracefully and provides meaningful error messages.
 
-Java
+### Wide Range of Applications:
+
+- **Web Applications**: Validate user input forms, ensuring valid and secure data.
+- **Configuration Files**: Ensure proper configuration formats and prevent errors.
+- **API Requests/Responses**: Validate data payloads for robust and reliable communication.
+- **Data Processing**: Enhance data integrity and reliability in various processing pipelines.
+
+### Example Usage:
+
+```java
 Validator v = new Validator();
 
 // Define individual schema rules for name and age
@@ -51,3 +55,4 @@ if (isValid) {
     System.out.println("User data is valid!");
 } else {
     System.out.println("User data is invalid!");
+}
