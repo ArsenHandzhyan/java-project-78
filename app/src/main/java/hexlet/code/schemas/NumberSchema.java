@@ -20,10 +20,9 @@ public final class NumberSchema extends BaseSchema {
         if (value == null) {
             return condition.test(null);
         }
-        if (!(value instanceof Integer)) {
+        if (!(value instanceof Integer intValue)) {
             return false;
         }
-        int intValue = (int) value;
         if (condition.test(null) && intValue <= 0) {
             return false;
         }
@@ -31,7 +30,7 @@ public final class NumberSchema extends BaseSchema {
     }
 
     public NumberSchema positive() {
-        condition = condition.and(num -> num == null || num > 0);
+        condition = condition.and(num -> num > 0);
         return this;
     }
 
