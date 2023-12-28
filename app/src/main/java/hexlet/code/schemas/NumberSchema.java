@@ -5,9 +5,8 @@ import java.util.function.Predicate;
 
 public final class NumberSchema extends BaseSchema {
     private Predicate<Integer> condition = num -> true;
-    private int rangeFrom;
-    private int rangeUpTo;
-
+    private int rangeFrom = 0;
+    private int rangeUpTo = 0;
 
     @Override
     public BaseSchema required() {
@@ -17,17 +16,17 @@ public final class NumberSchema extends BaseSchema {
 
     @Override
     public boolean isValid(Object value) {
-        if (value == null) {
-            return condition.test(null);
-        }
         if (!(value instanceof Integer intValue)) {
-            return false;
+            return condition.test(null) && value == null;
         }
-        if (!condition.test(intValue)) {
-            return false;
-        }
+        return condition.test(intValue) && isInsideRange(intValue);
+    }
 
-        return rangeFrom == 0 && rangeUpTo == 0 || (intValue >= rangeFrom && intValue <= rangeUpTo);
+    private boolean isInsideRange(Integer intValue) {
+        if (rangeFrom == 0 && rangeUpTo == 0) {
+            return true;
+        }
+        return intValue >= rangeFrom && intValue <= rangeUpTo;
     }
 
     public NumberSchema positive() {

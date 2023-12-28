@@ -1,61 +1,50 @@
 package hexlet.code.schemas;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.HashMap;
 import java.util.Objects;
 import java.util.function.Predicate;
 
 public final class MapSchema extends BaseSchema {
-    private Predicate<Integer> condition = num -> true;
+    private Predicate<Integer> sizeCondition = num -> true;
     private final Map<String, BaseSchema> schemas = new HashMap<>();
-    private int mapSize = 0;
+    private int requiredSize = 0;
 
     @Override
     public BaseSchema required() {
-        condition = condition.and(Objects::nonNull);
+        sizeCondition = Objects::nonNull;
         return this;
     }
 
     @Override
     public boolean isValid(Object value) {
-        if (value == null) {
-            return this.condition.test(null);
+        if (!(value instanceof Map<?, ?> map)) {
+            return sizeCondition.test((Integer) value);
         }
-
-        Map<?, ?> map = (Map<?, ?>) value;
-
-        boolean schemaValid = isValidSchema(map);
-        if (!schemaValid) {
-            return false;
-        }
-
-        return isValidSize(map);
+        return sizeCondition.test(map.size()) && hasValidSize(map) && areSchemasValid(map);
     }
 
-    private boolean isValidSchema(Map<?, ?> map) {
-        for (Map.Entry<String, BaseSchema> entry : schemas.entrySet()) {
+    private boolean hasValidSize(Map<?, ?> map) {
+        return requiredSize == 0 || map.size() == requiredSize;
+    }
+
+    private boolean areSchemasValid(Map<?, ?> map) {
+        for (var entry : schemas.entrySet()) {
             String key = entry.getKey();
             BaseSchema schema = entry.getValue();
-            Object valueForSchema = map.get(key);
-            if (!schema.isValid(valueForSchema)) {
+            Object valueToValidate = map.get(key);
+            if (!schema.isValid(valueToValidate)) {
                 return false;
             }
         }
         return true;
     }
 
-    private boolean isValidSize(Map<?, ?> map) {
-        if (mapSize == 0) {
-            return true;
-        }
-        return map.size() == mapSize;
+    public void sizeof(int size) {
+        this.requiredSize = size;
     }
 
-    public void sizeof(int sizeMap) {
-        this.mapSize = sizeMap;
-    }
-
-    public void shape(Map<String, BaseSchema> schemasIn) {
-        this.schemas.putAll(schemasIn);
+    public void shape(Map<String, BaseSchema> schemasToValidate) {
+        schemas.putAll(schemasToValidate);
     }
 }
