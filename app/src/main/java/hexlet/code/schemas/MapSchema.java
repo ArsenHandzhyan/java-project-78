@@ -1,6 +1,6 @@
 package hexlet.code.schemas;
 
-import java.util.*;
+import java.util.Map;
 
 public final class MapSchema extends BaseSchema {
     private int requiredSize = 0;
