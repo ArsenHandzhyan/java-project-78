@@ -6,7 +6,7 @@ public final class MapSchema extends BaseSchema {
     private int requiredSize = 0;
 
     @Override
-    public BaseSchema required() {
+    public MapSchema required() {
         addCheck("required", value -> {
             if (value == null) {
                 return false;

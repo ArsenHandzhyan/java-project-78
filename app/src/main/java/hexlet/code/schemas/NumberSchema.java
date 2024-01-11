@@ -5,13 +5,13 @@ import java.util.Objects;
 public final class NumberSchema extends BaseSchema {
 
     @Override
-    public BaseSchema required() {
+    public NumberSchema required() {
         addCheck("required", object -> object instanceof Integer);
         addCheck("nonNull", Objects::nonNull);
         return this;
     }
 
-    public BaseSchema positive() {
+    public NumberSchema positive() {
         addCheck("positive", value -> {
             if (value == null) {
                 return true;

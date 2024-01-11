@@ -26,7 +26,7 @@ public final class StringSchema extends BaseSchema {
         });
     }
 
-    public BaseSchema contains(String substring) {
+    public StringSchema contains(String substring) {
         addCheck("contains", value -> {
             if (value instanceof String str) {
                 return str.contains(substring);
