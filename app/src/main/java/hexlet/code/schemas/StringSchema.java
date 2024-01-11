@@ -5,7 +5,7 @@ import java.util.Objects;
 public final class StringSchema extends BaseSchema {
 
     @Override
-    public BaseSchema required() {
+    public StringSchema required() {
         addCheck("nonNull", Objects::nonNull);
         addCheck("nonEmptyString", value -> {
             if (!(value instanceof String strValue)) {
