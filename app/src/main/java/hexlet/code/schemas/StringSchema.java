@@ -1,33 +1,37 @@
 package hexlet.code.schemas;
 
-import java.util.function.Predicate;
+import java.util.Objects;
 
 public final class StringSchema extends BaseSchema {
-    private Predicate<String> condition = str -> true;
 
     @Override
-    public StringSchema required() {
-        condition = condition.and(str -> str != null && !str.isEmpty());
+    public BaseSchema required() {
+        addCheck("nonNull", Objects::nonNull);
+        addCheck("nonEmptyString", value -> {
+            if (value instanceof String str) {
+                return !str.isEmpty();
+            }
+            return false;
+        });
         return this;
     }
 
-    @Override
-    public boolean isValid(Object value) {
-        if (value == null) {
-            return this.condition.test(null);
-        }
-        if (!(value instanceof String)) {
-            return false;
-        }
-        return this.condition.test((String) value);
-    }
-
     public void minLength(int minLength) {
-        condition = condition.and(str -> str.length() >= minLength);
+        addCheck("minLength", value -> {
+            if (value instanceof String str) {
+                return str.length() >= minLength;
+            }
+            return false;
+        });
     }
 
-    public StringSchema contains(String substring) {
-        condition = condition.and(str -> str.contains(substring));
+    public BaseSchema contains(String substring) {
+        addCheck("contains", value -> {
+            if (value instanceof String str) {
+                return str.contains(substring);
+            }
+            return false;
+        });
         return this;
     }
 }

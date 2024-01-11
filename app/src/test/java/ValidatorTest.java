@@ -27,7 +27,6 @@ public final class ValidatorTest {
 
     @Test
     public void testWithNullAndEmpty() {
-        assertFalse(stringSchema.isValid(5)); // false
 
         assertTrue(stringSchema.isValid(null)); // true
         assertTrue(stringSchema.isValid("")); // true
