@@ -6,10 +6,10 @@ public final class StringSchema extends BaseSchema {
 
     @Override
     public BaseSchema required() {
-        addCheck("nonNull", Objects::nonNull);
+        addCheck("nonNull", Objects::nonNull);  // Check that the value is not null
         addCheck("nonEmptyString", value -> {
             if (value instanceof String str) {
-                return !str.isEmpty();
+                return !str.isEmpty();  // Check that the value is not an empty string
             }
             return false;
         });
